@@ -1,6 +1,6 @@
 import LoginPage from "../pages/LoginPage";
 
-describe("Login Page tests", () => {
+describe("Login Page", () => {
   beforeEach(() => {
     cy.fixture("users").then((users) => {
       cy.wrap(users).as("users");
