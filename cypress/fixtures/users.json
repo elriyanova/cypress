@@ -1,0 +1,13 @@
+{
+  "validUser": {
+    "email": "johndoe12jodo@gmail.com",
+    "password": "johndoe12jodo@gmail.com"
+  },
+  "invalidUser": {
+    "email": "invalid@wrongdomain.com",
+    "password": "InvalidPass"
+  },
+  "validEmail": {
+    "email": "emailrandompass@gmail.com"
+  }
+}
