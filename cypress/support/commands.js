@@ -1,25 +1,26 @@
-// ***********************************************
-// This example commands.js shows you how to
-// create various custom commands and overwrite
-// existing commands.
-//
-// For more comprehensive examples of custom
-// commands please read more here:
-// https://on.cypress.io/custom-commands
-// ***********************************************
-//
-//
-// -- This is a parent command --
-// Cypress.Commands.add('login', (email, password) => { ... })
-//
-//
-// -- This is a child command --
-// Cypress.Commands.add('drag', { prevSubject: 'element'}, (subject, options) => { ... })
-//
-//
-// -- This is a dual command --
-// Cypress.Commands.add('dismiss', { prevSubject: 'optional'}, (subject, options) => { ... })
-//
-//
-// -- This will overwrite an existing command --
-// Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+import LoginPage from "../pages/LoginPage";
+
+Cypress.Commands.add("login", (email, password) => {
+  LoginPage.login(email, password);
+});
+
+// Overwrite cy.visit() to handle retries on 429 errors
+Cypress.Commands.overwrite('visit', (originalFn, url, options = {}) => {
+    let attempts = 0;
+  
+    const retryVisit = () => {
+      return originalFn(url, { ...options, failOnStatusCode: false }).then((response) => {
+        if (response.status === 429 && attempts < retries) {
+          attempts++;
+          cy.wait(5000); // Wait for 5 seconds before retrying
+          retryVisit();
+        } else if (response.status === 429 && attempts >= retries) {
+          throw new Error('Too many requests - 429 error after retrying');
+        }
+      });
+    };
+    return retryVisit();
+  });
+  
+  
+  
