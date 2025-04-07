@@ -44,7 +44,7 @@ describe("Filter functionality", () => {
     });
   });
 
-  it("should delete filter and show more than 1 deal again", () => {
+  it("should delete filter and show all deals", () => {
     cy.origin(userUrl, () => {
         // create filter
         cy.get('[data-testid="filter-menu-button"]').click();
@@ -52,7 +52,6 @@ describe("Filter functionality", () => {
         cy.get('[data-testid="field-selector-option-label"]').click();
         cy.get('[data-testid="labels-placeholder"]').click();
         cy.get('[data-testid="labels-option-badge"]').click();
-        cy.get('[data-testid="filter-name-input"]').type(filterName);
         cy.get('[data-testid="save-button"]').click();
 
         // delete filter
