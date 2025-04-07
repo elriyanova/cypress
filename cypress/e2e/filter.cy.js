@@ -17,14 +17,9 @@ describe("Filter functionality", () => {
     });
   });
 
-  it("should show more than 1 deal when no filters are applied", () => {
+  it("should verify results with created filter and without filter", () => {
     cy.origin(userUrl, () => {
-      cy.get('[data-test="pipeline-deal-tile"]').its("length").should("be.gt", 1);
-    });
-  });
-
-  it("should apply a filter and show exactly 1 filtered deal", () => {
-    cy.origin(userUrl, () => {
+        cy.get('[data-test="pipeline-deal-tile"]').its("length").should("be.gt", 1);
 
         // create filter
         cy.get('[data-testid="filter-menu-button"]').click();
@@ -41,24 +36,7 @@ describe("Filter functionality", () => {
         cy.get('[data-testid="edit-current-filter-button"]').click();
         cy.get('[data-testid="delete-button"]').click();
         cy.get('[data-testid="delete-confirmation-button"]').click();
-    });
-  });
-
-  it("should delete filter and show all deals", () => {
-    cy.origin(userUrl, () => {
-        // create filter
-        cy.get('[data-testid="filter-menu-button"]').click();
-        cy.get('[data-testid="add-filter-button"]').click();
-        cy.get('[data-testid="field-selector-option-label"]').click();
-        cy.get('[data-testid="labels-placeholder"]').click();
-        cy.get('[data-testid="labels-option-badge"]').click();
-        cy.get('[data-testid="save-button"]').click();
-
-        // delete filter
-        cy.get('[data-testid="edit-current-filter-button"]').click();
-        cy.get('[data-testid="delete-button"]').click();
-        cy.get('[data-testid="delete-confirmation-button"]').click();
-
+                
         // verify results updated after delete filter
         cy.get('[data-test="pipeline-deal-tile"]').its("length").should("be.gt", 1);
     });
