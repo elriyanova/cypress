@@ -1,7 +1,7 @@
 {
   "validUser": {
-    "email": "johndoe12jodo@gmail.com",
-    "password": "johndoe12jodo@gmail.com"
+    "email": "ficova1429@lesotica.com",
+    "password": "ficova1429@lesotica.com"
   },
   "invalidUser": {
     "email": "invalid@wrongdomain.com",
@@ -9,5 +9,12 @@
   },
   "validEmail": {
     "email": "emailrandompass@gmail.com"
+  },
+  "incorrectPassword": {
+    "email": "johndoe12jodo@gmail.com"
+  },
+  "filterUser": {
+    "email": "ficova1429@lesotica.com",
+    "password": "ficova1429@lesotica.com"
   }
 }

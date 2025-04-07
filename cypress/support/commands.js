@@ -1,6 +1,7 @@
 import LoginPage from "../pages/LoginPage";
 
 Cypress.Commands.add("login", (email, password) => {
+  cy.visit("https://app.pipedrive.com/auth/login");
   LoginPage.login(email, password);
 });
 
@@ -21,6 +22,10 @@ Cypress.Commands.overwrite('visit', (originalFn, url, options = {}) => {
     };
     return retryVisit();
   });
-  
-  
+
+  Cypress.Commands.add("generateUserUrl", (email) => {
+    const emailPrefix = email.split('@')[0];
+    const emailDomain = email.split('@')[1].replace('.', '');
+    return `https://${emailPrefix}${emailDomain}.pipedrive.com/pipeline`;
+  });
   

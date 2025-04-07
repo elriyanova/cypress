@@ -11,10 +11,13 @@ describe("Login Page", () => {
 
   it("should login successfully with valid credentials", function () {
     LoginPage.login(this.users.validUser.email, this.users.validUser.password);
-    cy.origin("https://tender-spike.pipedrive.com", () => {
+
+    cy.generateUserUrl(this.users.validUser.email).then((userUrl) => {
+      cy.origin(userUrl, () => {
         cy.url().should("not.include", "/auth/login");
         cy.get('[data-testid="avatar-menu-btn"]').should("be.visible");
       });
+    });
   });
 
   it("should show an error with invalid email and invalid password", function () {
@@ -28,7 +31,7 @@ describe("Login Page", () => {
   it("should show error for correct email with incorrect password", function () {
     const incorrectPassword = LoginPage.generateRandomPassword();
 
-    LoginPage.login(this.users.validEmail.email, incorrectPassword);
+    LoginPage.login(this.users.incorrectPassword.email, incorrectPassword);
     LoginPage.getAccountLockedMessage().should("be.visible");
   });
 
